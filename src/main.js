@@ -12,7 +12,13 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
-
+// 注册过滤器(只能在模板使用)
+import filterObj from "./filter"
+for (let k in filterObj) { 
+  Vue.filter(k,filterObj[k])
+}
+// 定义一个地址，可以再任意地方使用
+Vue.prototype.$host = "http://localhost:3030"
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

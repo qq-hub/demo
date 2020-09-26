@@ -9,11 +9,10 @@
       <el-container class="page-content">
         <el-header  class="page-header" >
           <top />
-         
-
           <!-- Header content -->
         </el-header>
         <el-main >
+          <tagslist/>
           <router-view />
           <!-- Main content -->
         </el-main>
@@ -25,6 +24,8 @@
 <script>
 import top from "./Top";
 import left from "./Left";
+// 引入滚动条
+import tagslist from "./tagslist"
 import {mapState} from "vuex"
 export default {
   data() {
@@ -38,6 +39,7 @@ export default {
   components: {
     top,
     left,
+    tagslist
   },
 };
 </script>

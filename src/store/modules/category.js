@@ -1,23 +1,23 @@
 // 获取菜单列表！
-import { getMenu } from "@/request/menu"
+import { getCategory } from "@/request/category"
 export default {
     // 命名空间
     namespaced: true,
     state: { 
-        menulist: []
+        catelist: []
     }, 
     getters: {
-        menulist:state=>state.menulist
+        catelist:state=>state.catelist
     },
     mutations: {
         SET_LIST(state, data) {
-            state.menulist=data
+            state.catelist=data
         }
     },
     actions: {
         // 请求菜单列表的数据！
-        async get_menu_list({commit}) {
-            let res = await getMenu();
+        async get_category_list({commit}) {
+            let res = await getCategory();
             commit('SET_LIST', res)
             // console.log(res);
         }

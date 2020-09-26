@@ -7,6 +7,12 @@ Vue.use(Vuex);
 import menu from "@/store/modules/menu"
 import role from "@/store/modules/role"
 import user from "@/store/modules/user"
+import category from "@/store/modules/category"
+import specs from "@/store/modules/specs"
+import goods from "@/store/modules/goods"
+import tagsview from "@/store/modules/tagsview"
+
+
 let store = new Vuex.Store({
     state: {
         iscollapse: false  // 是否折叠，默认不折叠！
@@ -17,7 +23,7 @@ let store = new Vuex.Store({
         }
     },
     modules: {
-        menu,role,user   }
+        menu,role,user,category,specs,goods,tagsview }
 })
 
 export default store;

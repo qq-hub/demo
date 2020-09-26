@@ -6,7 +6,7 @@
       <!-- 登录内容区 -->
       <h3>小U商城管理系统</h3>
       <!-- 表单 model绑定(参考接口文档)-->
-      <el-form :model="forminfo" ref="form">
+      <el-form :model="forminfo" ref="form" :rules="rules">
         <el-form-item >
           <!-- 账号输入框 -->
           <el-input v-model="forminfo.username" placeholder="请输入账号">
@@ -27,7 +27,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="login-btn" type="primary" @click="login">登录</el-button>
+          <el-button class="login-btn" type="primary" @click="submit">登录</el-button>
         </el-form-item>
       </el-form>
       
@@ -38,21 +38,35 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     data(){
         return{
 
         forminfo:{
-            username:"",
-            password:""
-          }
+            username:"小丽",
+            password:"123"
+          },
+        rules:{
+          // 账号密码必填
+            username:[{required:true,message:"必填！",trigger:'blur'}],
+            password:[{required:true,message:"必填！",trigger:'blur'}],
+        }
         }
         
     },
     created(){},
     methods:{
-      login(){}
+      ...mapActions({login:"user/login"}),
+      submit(){
+         this.$refs.form.validate(valid=>{
+           if(valid){
+             this.login(this.forminfo)
+           }
+         })
+      }
     },
+
     components:{}
 }
 

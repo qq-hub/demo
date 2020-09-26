@@ -23,7 +23,29 @@
       <!-- 折叠:标题span包裹才能折叠(只留下标题) -->
       <el-menu-item index="/index"><i class="el-icon-house"></i><span slot="title">后台首页</span></el-menu-item>
       <!-- 目录 -->
-      <el-submenu index="2">
+      <!-- (登录后根据权限渲染目录) -->
+      <template v-for="(item,index) in menus">
+        <!-- 2菜单 -->
+        <el-menu-item :index="item.url" v-if="item.type==2">
+          <i :class="item.icon"></i>
+          <span slot="title">{{item.title}}</span>
+        </el-menu-item>
+        <!-- 子集 -->
+        <el-submenu v-else :index="index+''">
+          <template slot="title">
+            <i :class="item.icon"></i>
+            <span slot="title">{{item.title}}</span>
+          </template>
+          <el-menu-item 
+             v-for="(val,idx) in item.children"
+            :index="val.url"
+            :key="idx"  
+            >
+            {{val.title}}
+          </el-menu-item>
+        </el-submenu>                             
+      </template>
+      <!-- <el-submenu index="2">
         <template slot="title">
           <i class="el-icon-setting"></i>
           <span slot="title">系统设置</span>
@@ -31,25 +53,14 @@
         <el-menu-item index="/menu">菜单管理</el-menu-item>
         <el-menu-item index="/role">角色管理</el-menu-item>
         <el-menu-item index="/user">管理员管理</el-menu-item>
-      </el-submenu>
-        <el-submenu index="6">
-        <template slot="title">
-          <i class="el-icon-goods"></i>
-          <span slot="title">商城管理</span>
-        </template>
-        <el-menu-item index="3-1">分类管理</el-menu-item>
-          <el-menu-item index="3-2">规格管理</el-menu-item>
-          <el-menu-item index="3-3">商品管理</el-menu-item>
-          <el-menu-item index="3-4">会员管理</el-menu-item>
-          <el-menu-item index="3-5">轮播图管理</el-menu-item>
-          <el-menu-item index="3-6">秒杀管理</el-menu-item>
-      </el-submenu>
+      </el-submenu> -->
+
     </el-menu>
   </div>
 </template>
 
 <script>
-import {mapState} from "vuex"
+import {mapState,mapGetters} from "vuex"
 export default {
     data(){
         return{
@@ -58,7 +69,8 @@ export default {
     },
     created(){},
     computed:{
-      ...mapState(["iscollapse"])
+      ...mapState(["iscollapse"]),
+      ...mapGetters({menus:"user/menus"})
     },
     methods:{},
     components:{}
